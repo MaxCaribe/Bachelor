@@ -24,4 +24,6 @@ en:
     not_found: "Not Found"
     unauthorized: "Unauthorized"
     unprocessable_entity: "Unprocessable Entity"
+  auth:
+    error: "Incorrect credentials"
 

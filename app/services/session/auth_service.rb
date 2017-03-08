@@ -4,7 +4,8 @@ class Session::AuthService < ApplicationService
   end
 
   def perform
-    get_token if set_user && correct_password?
+    return Error(I18n.t('auth.error')) unless set_user && correct_password?
+    Success(get_session)
   end
 
   private
@@ -17,7 +18,7 @@ class Session::AuthService < ApplicationService
     @user.authenticate(@credentials.password)
   end
 
-  def get_token
+  def get_session
     @user.sessions.create
   end
 end

@@ -10,7 +10,7 @@ class Session::AuthService < ApplicationService
   private
 
   def set_user
-    @user = User.find_by!(email: @credentials.email)
+    @user = User.find_by(email: @credentials.email)
   end
 
   def correct_password?

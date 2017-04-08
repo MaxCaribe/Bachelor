@@ -22,6 +22,10 @@ class Api::V1::BaseController < ApplicationController
     render_error(401, I18n.t('error.unauthorized'), message)
   end
 
+  def render_bad_request(message)
+    render_error(401, I18n.t('error.bad_request'), message)
+  end
+
   def render_rescued_unprocessable_entity(error)
     render_error(422, I18n.t('error.unprocessable_entity'), error.message)
   end

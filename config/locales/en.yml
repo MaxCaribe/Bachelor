@@ -20,10 +20,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  auth:
+    error: "Incorrect credentials"
   error:
     not_found: "Not Found"
     unauthorized: "Unauthorized"
     unprocessable_entity: "Unprocessable Entity"
-  auth:
-    error: "Incorrect credentials"
+    bad_request: "Bad Request"
+  general:
+    blank_params: "Empty data"
+  registration:
+    error: "Invalid params"
 

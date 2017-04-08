@@ -1,21 +1,18 @@
-class Session::AuthService < ApplicationService
-  def initialize(credentials)
-    @credentials = credentials
+class Session::RegistrationService < ApplicationService
+  def initialize(user_params)
+    @user_params = user_params
   end
 
   def perform
-    return Error(I18n.t('auth.error')) unless set_user && correct_password?
+    set_user
+    @user.valid? ? @user.save : return Error(I18n.t('registration.error'))
     Success(get_session)
   end
 
   private
 
   def set_user
-    @user = User.find_by(email: @credentials.email)
-  end
-
-  def correct_password?
-    @user.authenticate(@credentials.password)
+    @user = User.new(@user_params)
   end
 
   def get_session

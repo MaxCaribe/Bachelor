@@ -1,7 +1,11 @@
 class Api::V1::Account::UsersController < Api::V1::Account::BaseController
-  #TODO
   def create
-    User.create(sign_up_params)
+    if sign_up_params.blank?
+      render_bad_request I18n.t('general.blank_params')
+    else
+      result = Session.RegistrationService.new(sign_up_params).perform
+      result.success? ? set_token(result.data) : render_unprocessable_entity(result.error)
+    end
   end
 
   def update

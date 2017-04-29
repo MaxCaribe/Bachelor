@@ -1,4 +1,4 @@
-class Session::AuthService < ApplicationService
+class Session::AuthService < Session::BaseService
   def initialize(credentials)
     @credentials = credentials
   end
@@ -16,9 +16,5 @@ class Session::AuthService < ApplicationService
 
   def correct_password?
     @user.authenticate(@credentials.password)
-  end
-
-  def get_session
-    @user.sessions.create
   end
 end

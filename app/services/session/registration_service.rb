@@ -1,11 +1,15 @@
-class Session::RegistrationService < ApplicationService
+class Session::RegistrationService < Session::BaseService
   def initialize(user_params)
     @user_params = user_params
   end
 
   def perform
     set_user
-    @user.valid? ? @user.save : return Error(I18n.t('registration.error'))
+    if @user.valid?
+      @user.save
+    else
+      return Error(I18n.t('registration.error'))
+    end
     Success(get_session)
   end
 
@@ -13,9 +17,5 @@ class Session::RegistrationService < ApplicationService
 
   def set_user
     @user = User.new(@user_params)
-  end
-
-  def get_session
-    @user.sessions.create
   end
 end

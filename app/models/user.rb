@@ -5,8 +5,8 @@ class User < ApplicationRecord
   has_many :locations
   has_one :location
 
-  validates :length, minimum: 8
-  validates :confirmation, allow_blank: false
+  validates :password, :length, minimum: 8
+  validates :password, :confirmation, allow_blank: false
 
   has_secure_password
 end

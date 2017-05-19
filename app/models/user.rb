@@ -7,11 +7,11 @@ class User < ApplicationRecord
                           foreign_key: :user_id,
                           association_foreign_key: :contact_id
   has_many :messages
-  has_many :locations
+  has_one :session
   has_one :location
 
-  validates :password, :length, minimum: 8
-  validates :password, :confirmation, allow_blank: false
+  validates :password, length: { minimum: 8 }
+  validates :password, confirmation: true, allow_blank: false
 
   has_secure_password
 end

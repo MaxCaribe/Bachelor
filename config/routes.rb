@@ -4,7 +4,16 @@ Rails.application.routes.draw do
       match 'sign_in', controller: :sessions, action: :create, via: :post
       match 'sign_out', controller: :sessions, action: :destroy, via: :delete
       match 'sign_up', controller: :users, action: :create, via: :post
-      resource :user, only: [:show, :update]
+      resource :users, only: [:index, :show, :update] do
+        resources :games, only: [:update]
+      end
+      resources :conversations, only: [:index] do
+        resources :messages, only: [:index, :create]
+      end
+      resources :users do
+        resources :conversations, only: [:create]
+      end
+      resources :contacts, only: [:create, :destroy]
     end
   end
 end

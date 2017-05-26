@@ -10,6 +10,10 @@ class Api::V1::BaseController < ApplicationController
     render json: json_error, status: status
   end
 
+  def render_success(message)
+    render json: { success: message }, status: 200
+  end
+
   def render_rescued_not_found(error)
     render_error(404, I18n.t('error.not_found'), error.message)
   end

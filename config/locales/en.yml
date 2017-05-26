@@ -22,6 +22,9 @@
 en:
   auth:
     error: "Incorrect credentials"
+  conversation:
+    connect:
+      error: "Conversation already exists"
   error:
     not_found: "Not Found"
     unauthorized: "Unauthorized"

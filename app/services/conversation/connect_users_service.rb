@@ -15,7 +15,7 @@ class Conversation::ConnectUsersService < ApplicationService
 
   def connect_users
     conversation = @current_user.conversations.create
-    @user.conversations.build conversation
+    @user.conversations << conversation
     conversation
   end
 end

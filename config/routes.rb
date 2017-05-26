@@ -13,8 +13,8 @@ Rails.application.routes.draw do
       end
       resources :users do
         resources :conversations, only: [:create]
+        resource :contacts, only: [:create, :destroy]
       end
-      resources :contacts, only: [:create, :destroy]
     end
   end
 end

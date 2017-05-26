@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       match 'sign_out', controller: :sessions, action: :destroy, via: :delete
       match 'sign_up', controller: :users, action: :create, via: :post
       resource :users, only: [:index, :show, :update] do
+        resources :location, only: [:update]
         resources :games, only: [:update]
       end
       resources :conversations, only: [:index] do

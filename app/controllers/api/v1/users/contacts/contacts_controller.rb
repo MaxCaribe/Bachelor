@@ -12,6 +12,6 @@ class Api::V1::ContactsController < Api::V1::BaseController
   private
 
   def set_user
-    User.find(params[:user_id])
+    @user = User.find(params[:user_id])
   end
 end

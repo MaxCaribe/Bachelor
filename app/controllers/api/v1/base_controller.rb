@@ -1,6 +1,8 @@
 class Api::V1::BaseController < ApplicationController
   protect_from_forgery with: :null_session
 
+  before_action :authenticate
+
   rescue_from ActiveRecord::RecordNotFound, with: :render_rescued_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :render_rescued_unprocessable_entity
   rescue_from ActionController::ParameterMissing, with: :render_rescued_unprocessable_entity
@@ -36,5 +38,16 @@ class Api::V1::BaseController < ApplicationController
 
   def render_unprocessable_entity(message)
     render_error(422, I18n.t('error.unprocessable_entity'), message)
+  end
+
+  protected
+
+  def authenticate
+    if @user_session ||= Session.non_expired.find_by(access_token: request.headers['Authorization'])
+      @user_session.touch
+      @current_user ||= @user_session.user
+    else
+      render_unauthorized I18n.t('session.error')
+    end
   end
 end

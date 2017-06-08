@@ -1,4 +1,6 @@
 class Api::V1::Account::BaseController < ApplicationController
+  skip_before_action :authenticate, only: [:create]
+
   private
 
   def set_token(session)

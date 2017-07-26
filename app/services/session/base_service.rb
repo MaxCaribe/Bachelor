@@ -2,6 +2,6 @@ class Session::BaseService < ApplicationService
   protected
 
   def get_session
-    @user.sessions.create
+    @user.create_session
   end
 end

@@ -4,17 +4,20 @@ class Session::AuthService < Session::BaseService
   end
 
   def perform
-    return Error(I18n.t('auth.error')) unless set_user && correct_password?
-    Success(get_session)
+    if set_user && correct_password?
+      Response::Success.new(get_session)
+    else
+      Response::Error.new(I18n.t('auth.error'))
+    end
   end
 
   private
 
   def set_user
-    @user = User.find_by(email: @credentials.email)
+    @user = User.find_by(email: @credentials[:email])
   end
 
   def correct_password?
-    @user.authenticate(@credentials.password)
+    @user.authenticate(@credentials[:password])
   end
 end

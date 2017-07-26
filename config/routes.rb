@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  namespace :api do
-    namespace :v1, format: :json do
-      match 'sign_in', controller: :sessions, action: :create, via: :post
-      match 'sign_out', controller: :sessions, action: :destroy, via: :delete
-      match 'sign_up', controller: :users, action: :create, via: :post
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      post 'sign_in', to: 'account/sessions#create'
+      delete 'sign_out', to: 'account/session#destroy'
+      post 'sign_up', to: 'account/users#create'
       resource :users, only: [:index, :show, :update] do
         resources :location, only: [:update]
         resources :games, only: [:update]

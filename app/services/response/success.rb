@@ -1,4 +1,4 @@
-class Success < Response
+class Response::Success < Response
   attr_reader :data
 
   def initialize(data)

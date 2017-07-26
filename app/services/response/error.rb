@@ -1,4 +1,4 @@
-class Error < Response
+class Response::Error < Response
   attr_reader :error
 
   def initialize(error)

@@ -1,6 +1,4 @@
 class Api::V1::BaseController < ApplicationController
-  protect_from_forgery with: :null_session
-
   before_action :authenticate
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_rescued_not_found
@@ -43,9 +41,9 @@ class Api::V1::BaseController < ApplicationController
   protected
 
   def authenticate
-    if @user_session ||= Session.non_expired.find_by(access_token: request.headers['Authorization'])
-      @user_session.touch
-      @current_user ||= @user_session.user
+    if @current_session ||= Session.non_expired.find_by(access_token: request.headers['Authorization'])
+      @current_session.touch
+      @current_user ||= @current_session.user
     else
       render_unauthorized I18n.t('session.error')
     end
